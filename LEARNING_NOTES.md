@@ -1,68 +1,67 @@
+The standard method of post training is called Supervised Fine-Tuning (SFT). Other methods include preference optimization (DPO, ORPO), distillation and Reinforcement Learning (RL) (GRPO, GSPO), where an "agent" learns to make decisions by interacting with an environment and receiving feedback in the form of rewards or penalties.
 
-# The standard method of post training is called Supervised Fine-Tuning (SFT). Other methods include preference optimization (DPO, ORPO), distillation and Reinforcement Learning (RL) (GRPO, GSPO), where an "agent" learns to make decisions by interacting with an environment and receiving feedback in the form of rewards or penalties.
+Example fine-tuning or RL use-cases:Enables LLMs to predict if a headline impacts a company positively or negatively.Can use historical customer interactions for more accurate and custom responses.Fine-tune LLM on legal texts for contract analysis, case law research, and compliance.
+ 
+Fine-tuning can replicate all of RAG's capabilities
 
-# Example fine-tuning or RL use-cases:Enables LLMs to predict if a headline impacts a company positively or negatively.Can use historical customer interactions for more accurate and custom responses.Fine-tune LLM on legal texts for contract analysis, case law research, and compliance.
+LoRA and QLoRA are efficient shortcuts used to train Large Language Models (LLMs) like Llama 70B by updating only 1% of the weights and shrinking data to save 75% memory. Think of it as updating a massive encyclopedia by adding small sticky notes instead of rewriting the entire book.
 
-# Fine-tuning can replicate all of RAG's capabilities
+The Encyclopedia Analogy
+• Model Weights: These are the 70 billion numbers acting as the facts inside the encyclopedia.
+• LoRA (Sticky Notes): Instead of editing all 70 billion numbers, you attach tiny sticky notes containing just the new updates.
+• QLoRA (Font Shrinking): You print the encyclopedia in a much smaller font to save shelf space, then add the sticky notes.
 
-# LoRA and QLoRA are efficient shortcuts used to train Large Language Models (LLMs) like Llama 70B by updating only 1% of the weights and shrinking data to save 75% memory. Think of it as updating a massive encyclopedia by adding small sticky notes instead of rewriting the entire book.
+Fine-tuning an LLM customizes its behavior, deepens its domain expertise, and optimizes its performance for specific tasks. By refining a pre-trained model (e.g. Llama-3.1-8B) with specialized data, you can:
 
-# The Encyclopedia Analogy
-# • Model Weights: These are the 70 billion numbers acting as the facts inside the encyclopedia.
-# • LoRA (Sticky Notes): Instead of editing all 70 billion numbers, you attach tiny sticky notes containing just the new updates.
-# • QLoRA (Font Shrinking): You print the encyclopedia in a much smaller font to save shelf space, then add the sticky notes.
+Update Knowledge – Introduce new, domain-specific information that the base model didn’t originally include.
 
-# Fine-tuning an LLM customizes its behavior, deepens its domain expertise, and optimizes its performance for specific tasks. By refining a pre-trained model (e.g. Llama-3.1-8B) with specialized data, you can:
+Customize Behavior – Adjust the model’s tone, personality, or response style to fit specific needs or a brand voice.
 
-# Update Knowledge – Introduce new, domain-specific information that the base model didn’t originally include.
+Optimize for Tasks – Improve accuracy and relevance on particular tasks or queries your use-case requires.
 
-# Customize Behavior – Adjust the model’s tone, personality, or response style to fit specific needs or a brand voice.
+Think of fine-tuning as creating a specialized expert out of a generalist model. Some debate whether to use Retrieval-Augmented Generation (RAG) instead of fine-tuning, but fine-tuning can incorporate knowledge and behaviors directly into the model in ways RAG cannot. In practice, combining both approaches yields the best results - leading to greater accuracy, better usability, and fewer hallucinations.
 
-# Optimize for Tasks – Improve accuracy and relevance on particular tasks or queries your use-case requires.
+Some of the real world application of fine-tunning
+Sentiment Analysis for Finance
+Customer Support Chatbots
+Legal Document Assistance
 
-# Think of fine-tuning as creating a specialized expert out of a generalist model. Some debate whether to use Retrieval-Augmented Generation (RAG) instead of fine-tuning, but fine-tuning can incorporate knowledge and behaviors directly into the model in ways RAG cannot. In practice, combining both approaches yields the best results - leading to greater accuracy, better usability, and fewer hallucinations.
+Fine-Tuning vs. RAG: What’s the Difference? Fine-tuning can do mostly everything RAG can - but not the other way around. During training, fine-tuning embeds external knowledge directly into the model. This allows the model to handle niche queries, summarize documents, and maintain context without relying on an outside retrieval system. That’s not to say RAG lacks advantages as it is excels at accessing up-to-date information from external databases. It is in fact possible to retrieve fresh data with fine-tuning as well, however it is better to combine RAG with fine-tuning for efficiency.
 
-# Some of the real world application of fine-tunning
-# Sentiment Analysis for Finance
-# Customer Support Chatbots
-# Legal Document Assistance
+Fine-Tuning deeply integrates domain knowledge into the model.This makes it highly effective at handling structured, repeat tasks
 
-# Fine-Tuning vs. RAG: What’s the Difference? Fine-tuning can do mostly everything RAG can - but not the other way around. During training, fine-tuning embeds external knowledge directly into the model. This allows the model to handle niche queries, summarize documents, and maintain context without relying on an outside retrieval system. That’s not to say RAG lacks advantages as it is excels at accessing up-to-date information from external databases. It is in fact possible to retrieve fresh data with fine-tuning as well, however it is better to combine RAG with fine-tuning for efficiency.
+Does Fine-Tuning Add New Knowledge to a Model?
+Yes - it absolutely can. A common myth suggests that fine-tuning doesn’t introduce new knowledge, but in reality it does. If your fine-tuning dataset contains new domain-specific information, the model will learn that content during training and incorporate it into its responses. In effect, fine-tuning can and does teach the model new facts and patterns from scratch
 
-# Fine-Tuning deeply integrates domain knowledge into the model.This makes it highly effective at handling structured, repeat tasks
+Is RAG Always Better Than Fine-Tuning?Not necessarily. Many assume RAG will consistently outperform a fine-tuned model, but that’s not the case when fine-tuning is done properly. In fact, a well-tuned model often matches or even surpasses RAG-based systems on specialized tasks. Claims that “RAG is always better” usually stem from fine-tuning attempts that weren’t optimally configured - for example, using incorrect LoRA parameters or insufficient training.
 
-# Does Fine-Tuning Add New Knowledge to a Model?
-# Yes - it absolutely can. A common myth suggests that fine-tuning doesn’t introduce new knowledge, but in reality it does. If your fine-tuning dataset contains new domain-specific information, the model will learn that content during training and incorporate it into its responses. In effect, fine-tuning can and does teach the model new facts and patterns from scratch
-
-# Is RAG Always Better Than Fine-Tuning?Not necessarily. Many assume RAG will consistently outperform a fine-tuned model, but that’s not the case when fine-tuning is done properly. In fact, a well-tuned model often matches or even surpasses RAG-based systems on specialized tasks. Claims that “RAG is always better” usually stem from fine-tuning attempts that weren’t optimally configured - for example, using incorrect LoRA parameters or insufficient training.
-
-# Is Fine-Tuning Expensive?Not at all! While full fine-tuning or pretraining can be costly, these are not necessary (pretraining is especially not necessary). In most cases, LoRA or QLoRA fine-tuning can be done for minimal cost. In fact, with Unsloth’s free notebooks for Colab or Kaggle, you can fine-tune models without spending a dime. Better yet, you can even fine-tune locally on your own device.
-
-
-# Why You Should Combine RAG & Fine-Tuning Instead of choosing between RAG and fine-tuning, consider using both together for the best results. Combining a retrieval system with a fine-tuned model brings out the strengths of each approach. Here’s why:
-
-# Task-Specific Expertise – Fine-tuning excels at specialized tasks or formats (making the model an expert in a specific area), while RAG keeps the model up-to-date with the latest external knowledge.
-
-# Better Adaptability – A fine-tuned model can still give useful answers even if the retrieval component fails or returns incomplete information. Meanwhile, RAG ensures the system stays current without requiring you to retrain the model for every new piece of data.
-
-# Efficiency – Fine-tuning provides a strong foundational knowledge base within the model, and RAG handles dynamic or quickly-changing details without the need for exhaustive re-training from scratch. This balance yields an efficient workflow and reduces overall compute costs.
-
-# LoRA vs. QLoRA: Which One to Use?
-
-# LoRA (Low-Rank Adaptation) – Fine-tunes only a small set of additional “adapter” weight matrices (in 16-bit precision), while leaving most of the original model unchanged. This significantly reduces the number of parameters that need updating during training.
+Is Fine-Tuning Expensive?Not at all! While full fine-tuning or pretraining can be costly, these are not necessary (pretraining is especially not necessary). In most cases, LoRA or QLoRA fine-tuning can be done for minimal cost. In fact, with Unsloth’s free notebooks for Colab or Kaggle, you can fine-tune models without spending a dime. Better yet, you can even fine-tune locally on your own device.
 
 
-# QLoRA (Quantized LoRA) :Combines LoRA with 4-bit quantization of the model weights, enabling efficient fine-tuning of very large models on minimal hardware. By using 4-bit precision where possible, it dramatically lowers memory usage and compute overhead.
+Why You Should Combine RAG & Fine-Tuning Instead of choosing between RAG and fine-tuning, consider using both together for the best results. Combining a retrieval system with a fine-tuned model brings out the strengths of each approach. Here’s why:
+
+Task-Specific Expertise – Fine-tuning excels at specialized tasks or formats (making the model an expert in a specific area), while RAG keeps the model up-to-date with the latest external knowledge.
+
+Better Adaptability – A fine-tuned model can still give useful answers even if the retrieval component fails or returns incomplete information. Meanwhile, RAG ensures the system stays current without requiring you to retrain the model for every new piece of data.
+
+Efficiency – Fine-tuning provides a strong foundational knowledge base within the model, and RAG handles dynamic or quickly-changing details without the need for exhaustive re-training from scratch. This balance yields an efficient workflow and reduces overall compute costs.
+
+LoRA vs. QLoRA: Which One to Use?
+
+LoRA (Low-Rank Adaptation) – Fine-tunes only a small set of additional “adapter” weight matrices (in 16-bit precision), while leaving most of the original model unchanged. This significantly reduces the number of parameters that need updating during training.
 
 
-# A simplified understanding of LORA and QLORA :
+QLoRA (Quantized LoRA) :Combines LoRA with 4-bit quantization of the model weights, enabling efficient fine-tuning of very large models on minimal hardware. By using 4-bit precision where possible, it dramatically lowers memory usage and compute overhead.
 
 
- # LLM Fine-Tuning Shortcuts: LoRA vs. QLoRA
- # 📘 LoRA (Low-Rank Adaptation) The Core Concept: Instead of updating billions of parameters in the original model, LoRA freezes the base model and trains a small set of external "adapter" matrices.
-# The Analogy: Leaving a 1,000-page textbook completely untouched and only writing specialized updates on Post-it notes stuck to the pages.
-# How it Alters Behaviour: It acts like a detour in the AI's thinking path. The input signal passes through the original model, gets intercepted by the adapter to apply the new style/rules, and merges back into the main output.
-# Key Benefit: Saves Training Memory. Drastically reduces the number of parameters that need updating, making training much faster and cheaper.
+A simplified understanding of LORA and QLORA :
+
+
+LLM Fine-Tuning Shortcuts: LoRA vs. QLoRA
+📘 LoRA (Low-Rank Adaptation) The Core Concept: Instead of updating billions of parameters in the original model, LoRA freezes the base model and trains a small set of external "adapter" matrices.
+The Analogy: Leaving a 1,000-page textbook completely untouched and only writing specialized updates on Post-it notes stuck to the pages.
+How it Alters Behaviour: It acts like a detour in the AI's thinking path. The input signal passes through the original model, gets intercepted by the adapter to apply the new style/rules, and merges back into the main output.
+Key Benefit: Saves Training Memory. Drastically reduces the number of parameters that need updating, making training much faster and cheaper.
 
 # 🔬 QLoRA (Quantized LoRA) The Core Concept: Takes LoRA a step further by heavily compressing the frozen base model down to 4-bit precision using a specialized mathematical format (NF4), while keeping the LoRA adapters in high-resolution (16-bit).
 # The Analogy: Shrinking that 1,000-page textbook into a blurry, micro-sized booklet to save massive amounts of storage space, then using high-definition Post-it notes on top.
@@ -116,14 +115,14 @@
 # Why it works: Because instruct models have been heavily aligned by tech companies, they can sometimes exhibit "rigidity" (they try too hard to be a helpful assistant, even when your training data is trying to make them do something else). Starting from a base model with a large dataset gives you a clean canvas. The model will smoothly adapt to your data's exact structure without any corporate guardrails or pre-trained conversational habits fighting back.
 
 
-# What is Unsloth
+What is Unsloth
 
-# Unsloth makes finetuning LLMs like LLama-3 , Mistral, Phi-3 and Gemma
+Unsloth makes finetuning LLMs like LLama-3 , Mistral, Phi-3 and Gemma
 
 
 ## Learnings
 
-## 2026-10-15: Model evaluation
+2026-10-15: Model evaluation
 
 **Two kinds of evals**
 - Model benchmarks (MMLU, ARC, HellaSwag) compare models. Product evals test my own system on my own data, like the FinSight golden set.
